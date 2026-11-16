@@ -1,0 +1,30 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+
+# --- Private profile documents (only the encrypted profile.enc is published) ---
+me/*
+!me/README.md
+
+# --- Python environment and caches ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- App output ---
+logs/
+.gradio/
+flagged/
+
+# --- Editors and operating system ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

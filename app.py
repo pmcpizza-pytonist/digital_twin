@@ -148,6 +148,22 @@ TOOL_FUNCTIONS = {
 }
 
 
+def tool_call_to_dict(call, index: int) -> dict:
+    """Copy a tool call back into the conversation without losing provider-specific fields.
+
+    Gemini 3 "thinking" models attach a thought_signature to each tool call
+    (in extra_content.google). It must be sent back unchanged on the next request,
+    otherwise Gemini rejects it with a 400 error.
+    """
+    data = call.model_dump(exclude_none=True)
+    extra = getattr(call, "model_extra", None) or {}
+    if "extra_content" in extra:
+        data["extra_content"] = extra["extra_content"]
+    data["id"] = call.id or f"call_{index}"
+    data.setdefault("type", "function")
+    return data
+
+
 def run_tool_calls(tool_calls) -> list[dict]:
     """Execute the tool calls requested by the model and return tool messages."""
     results = []
@@ -248,6 +264,7 @@ def chat(message, history):
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     messages += to_api_history(history)
     messages.append({"role": "user", "content": message})
+    contact_recorded = False
 
     try:
         for _ in range(MAX_TOOL_ROUNDS):
@@ -259,19 +276,16 @@ def chat(message, history):
                 {
                     "role": "assistant",
                     "content": reply.content or "",
-                    "tool_calls": [
-                        {
-                            "id": call.id or f"call_{i}",
-                            "type": "function",
-                            "function": {"name": call.function.name, "arguments": call.function.arguments},
-                        }
-                        for i, call in enumerate(reply.tool_calls)
-                    ],
+                    "tool_calls": [tool_call_to_dict(call, i) for i, call in enumerate(reply.tool_calls)],
                 }
             )
             messages += run_tool_calls(reply.tool_calls)
+            if any(call.function.name == "record_user_details" for call in reply.tool_calls):
+                contact_recorded = True
     except Exception as exc:
-        print(f"[error] Model call failed: {exc}")
+        print(f"[error] Model call failed: {type(exc).__name__}: {exc}")
+        if contact_recorded:  # the important part already happened - don't tell the visitor it failed
+            return f"Thanks! I've passed your details on, and {NAME} will get back to you soon."
         return "Sorry, I'm having trouble connecting right now. Please try again in a moment."
 
     return "Sorry, something went wrong on my side. Please try asking again."

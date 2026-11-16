@@ -1,0 +1,22 @@
+About me
+I'm Avi Tsipshtein, a Senior Automation Developer and AI Engineer based in Israel. I have more than 10 years of experience in quality and test automation: about eight years in QA across hardware, software and SaaS products, and then nearly six years at Rapyd, where I grew from automation developer to Automation Team Lead.
+
+What I do today
+At Rapyd I lead the automation team responsible for product quality across fintech payment flows: wallets, payouts, FX, compliance and fraud detection. I coordinate the pipeline from deployment to production, and keep QA, Dev and Product aligned across Scrum sprints. I've hired, trained and mentored automation engineers, written our team procedures and onboarding manuals, and I conduct technical interviews for automation roles.
+
+AI in my work
+I lead AI adoption and implementation in Rapyd's automation guild. In practice that means building the Claude tooling our engineers use every day: writing rules, skills and agents (including Claude Code subagents), managing MCP servers and tools, and managing context and memory for engineering workflow automation. My team uses Cursor and Claude Code to write tests more efficiently. I also build agents with LangGraph and LangChain, and I completed an AI Engineer course on Udemy.
+
+This digital twin is one of my own AI projects: a Python and Gradio app running on Google Gemini, grounded in my CV and LinkedIn profile, that uses LLM tool calling to record contact requests and questions it can't answer, and notifies me by push notification.
+
+What I'm looking for
+I'm looking for my next role as an Automation Engineer or an Automation Team Lead - that's my natural space, where my 10+ years of hands-on automation and team leadership come together. I'm also interested in AI Engineer roles, building on the AI adoption work I've been leading: agents, rules and skills, MCP tooling, and context and memory management.
+
+How I work
+I'm a problem solver and an autodidact - I learn new tools by building real things with them. Much of my impact comes from working across teams and guilds, bringing people with different goals together to deliver. I'm a certified Scrum Master.
+
+Technical toolkit
+Python, Playwright and Selenium, AWS, Docker and Kubernetes, Jenkins CI/CD, SQL and NoSQL databases, Git, and networking.
+
+Languages
+Hebrew (native) and English (fluent).
